@@ -1,7 +1,14 @@
 {
   "name": "datasale-frontend",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.1",
+  "description": "Just a simple Frontend Test",
+  "author": "euclidesdry <euclidesdry@gmail.com>",
+  "private": false,
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js"
+  },
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
@@ -48,6 +55,7 @@
     "react-dev-utils": "^12.0.0",
     "react-dom": "^17.0.2",
     "react-refresh": "^0.11.0",
+    "react-router-dom": "^6.2.1",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^12.3.0",
@@ -62,11 +70,6 @@
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1"
-  },
-  "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
   },
   "eslintConfig": {
     "extends": [
@@ -141,5 +144,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3"
   }
 }
