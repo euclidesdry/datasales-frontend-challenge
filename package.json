@@ -1,5 +1,5 @@
 {
-  "name": "datasale-frontend",
+  "name": "datasales-frontend",
   "version": "0.0.1",
   "description": "Just a simple Frontend Test",
   "author": "euclidesdry <euclidesdry@gmail.com>",
@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.3.0",
+    "@mui/material": "^5.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.1",

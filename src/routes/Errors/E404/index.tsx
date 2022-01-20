@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { Box } from '@mui/material';
 
-export default function Auth() {
+export default function E404() {
   return (
     <Box sx={{
       with: '100vh',
@@ -10,7 +11,7 @@ export default function Auth() {
       justifyContent: 'center',
       alignItems: 'center'
     }}>
-      <h1>Authentication</h1>
+      <h1 >Error 404</h1>
     </Box>
-  );
+  )
 }
