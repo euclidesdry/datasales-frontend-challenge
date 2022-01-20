@@ -1,2 +1,3 @@
-# datasales frontend challenge
+# Datasales Frontend Challenge
+
  A simple challenge powered by Datasales
