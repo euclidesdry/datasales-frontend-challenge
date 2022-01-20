@@ -4,9 +4,10 @@ const instance = axios.create({
   baseURL: "https://www.thecocktaildb.com/api/json/v1/1/",
   timeout: 2000,
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-    Accept: "application/json",
-    "X-Custom-Header": "Datasales App",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Content-Type, Authorization, X-Requested-With",
   },
 });
 
