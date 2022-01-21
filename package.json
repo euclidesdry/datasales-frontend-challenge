@@ -5,7 +5,8 @@
   "author": "euclidesdry <euclidesdry@gmail.com>",
   "private": false,
   "scripts": {
-    "start": "concurrently \"node scripts/start.js\" \"json-server --watch server.json --delay 1580 --port 9002\"",
+    "dev": "concurrently \"node scripts/start.js --mode development\" \"json-server --watch server.json --delay 1580 --port 9002\"",
+    "start": "node scripts/start.js --mode production",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
