@@ -1,90 +1,81 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
-  Avatar,
-  Divider,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  iconButtonClasses,
+  Pagination,
   Typography,
+  useTheme,
 } from "@mui/material";
+import {
+  SkipNext as SkipNextIcon,
+  SkipPrevious as SkipPreviousIcon,
+  PlayArrow as PlayArrowIcon,
+} from "@mui/icons-material";
 
-import { getDrinks } from "../../../../services/App";
+import { getDrinks, IDrink } from "../../../../services/App";
 
 export const DrinkList: FC = () => {
-
-  const [drinks, setDrinks] = React.useState<any[]>([]);
+  const [drinks, setDrinks] = useState<Array<IDrink>>([]);
+  const theme = useTheme();
 
   useEffect(() => {
-    getDrinks();
+    (async function () {
+      const requestedDrinks = await getDrinks();
+
+      if (requestedDrinks) {
+        setDrinks(requestedDrinks);
+      }
+
+      console.log(requestedDrinks);
+    })();
   }, []);
+
   return (
-    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Ali Connors
-              </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Sandra Adams
-              </Typography>
-              {" — Do you have Paris recommendations? Have you ever…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-    </List>
+    <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+      {drinks &&
+        drinks.map((drink: IDrink) => {
+          return (
+            <Card
+              key={drink.idDrink}
+              sx={{ display: "flex", flexDirection: "column-reverse", mb: 2 }}
+            >
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <CardContent sx={{ flex: "1 0 auto" }}>
+                  <Typography component="div" variant="h5">
+                    {drink.strDrink}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="div"
+                  >
+                    {drink.strInstructions}
+                  </Typography>
+                </CardContent>
+              </Box>
+              <CardMedia
+                component="img"
+                sx={{ width: "100%", height: "200px" }}
+                image={drink.strDrinkThumb}
+                alt="Live from space album cover"
+              />
+            </Card>
+          );
+        })}
+
+      {/* <Divider variant="inset" component="li" /> */}
+
+      <Pagination
+        count={13}
+        size="large"
+        page={1}
+        variant="outlined"
+        shape="rounded"
+      />
+    </Box>
   );
 };
