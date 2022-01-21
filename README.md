@@ -25,4 +25,8 @@
 - [ ] Save data to LocalStorage
 - [X] Deploy Application
 
+## Bonus
+- [x] CI/CD
+- [ ] Unit Tests
+
 ### The Fake API was based on [https://www.thecocktaildb.com/](https://www.thecocktaildb.com/api/json/v1/1/search.php?s=coffee)
