@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
+import React, { Fragment } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
 
-import Router from './router';
+import Router from "./router";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
-    <Fragment>
+    <div data-testid="datasales-app">
       <CssBaseline />
       <Router />
-    </Fragment>
+    </div>
   );
 }
 
