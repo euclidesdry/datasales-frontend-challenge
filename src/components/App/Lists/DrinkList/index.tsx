@@ -4,23 +4,14 @@ import {
   Card,
   CardContent,
   CardMedia,
-  IconButton,
-  iconButtonClasses,
   Pagination,
   Typography,
-  useTheme,
 } from "@mui/material";
-import {
-  SkipNext as SkipNextIcon,
-  SkipPrevious as SkipPreviousIcon,
-  PlayArrow as PlayArrowIcon,
-} from "@mui/icons-material";
 
 import { getDrinks, IDrink } from "../../../../services/App";
 
 export const DrinkList: FC = () => {
   const [drinks, setDrinks] = useState<Array<IDrink>>([]);
-  const theme = useTheme();
 
   useEffect(() => {
     (async function () {
@@ -30,7 +21,7 @@ export const DrinkList: FC = () => {
         setDrinks(requestedDrinks);
       }
 
-      console.log(requestedDrinks);
+      console.log(requestedDrinks, process.env.NODE_ENV);
     })();
   }, []);
 
@@ -66,8 +57,6 @@ export const DrinkList: FC = () => {
             </Card>
           );
         })}
-
-      {/* <Divider variant="inset" component="li" /> */}
 
       <Pagination
         count={13}

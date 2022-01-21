@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import axios from "../services.config";
 
 export interface IDrink {
@@ -23,9 +22,12 @@ export interface IDrink {
   dateModified: string;
 }
 
+const API_QUERY_STRING =
+  process.env.NODE_ENV === "production" ? "/search.php?s=coffee" : "/drinks";
+
 export async function getDrinks() {
   try {
-    const response = await axios.get<IDrink[]>("/drinks");
+    const response = await axios.get<IDrink[]>(API_QUERY_STRING);
     return response.data;
   } catch (error) {
     console.warn(error);
