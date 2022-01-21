@@ -39,7 +39,7 @@
 
 ## Bonus
 
-- [x] Setup CI/CD
+- [x] Setup CI/CD (GitHub Actions [Node v14-16])
 - [x] Setup Unit Tests
 
 ### The Fake API was based on [https://www.thecocktaildb.com/](https://www.thecocktaildb.com/api/json/v1/1/search.php?s=coffee)
