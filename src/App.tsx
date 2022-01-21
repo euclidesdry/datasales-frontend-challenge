@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Router from "./router";

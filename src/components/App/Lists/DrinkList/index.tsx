@@ -26,7 +26,10 @@ export const DrinkList: FC = () => {
   }, []);
 
   return (
-    <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+    <Box
+      sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+      data-testid="list-app"
+    >
       {drinks &&
         drinks.map((drink: IDrink) => {
           return (

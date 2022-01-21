@@ -35,7 +35,7 @@ export const Header: FC = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" data-testid="header-app">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
