@@ -2,12 +2,24 @@
 
   A simple challenge powered by Datasales
 
+## Deployed App
+
+  Follow the links below to see the deployed app.
+
+#### Netlify
+
+[datasales-frontend-challenge.netlify.app](https://datasales-frontend-challenge.netlify.app)
+
+#### Heroku
+
+[https://euclidesdry-datasales-frontend.herokuapp.com](https://euclidesdry-datasales-frontend.herokuapp.com)
+
 ## Routes
 
-  - Authentication [Auth]
-    - Autenticaion Page to Login
-  - Application [App]
-    - Shows cards from API Request to List Drinks
+- Authentication [Auth]
+  - Authentication Page to Login
+- Application [App]
+  - Shows cards from API Request to List Drinks
 
 ## Requirements
 
@@ -23,10 +35,11 @@
 - [ ] Redux
 - [X] TypeScript
 - [ ] Save data to LocalStorage
-- [X] Deploy Application
+- [X] Deploy Application (Heroku, Netlify)
 
 ## Bonus
-- [x] CI/CD
-- [ ] Unit Tests
+
+- [x] Setup CI/CD
+- [x] Setup Unit Tests
 
 ### The Fake API was based on [https://www.thecocktaildb.com/](https://www.thecocktaildb.com/api/json/v1/1/search.php?s=coffee)
