@@ -1,8 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { bindActionCreators } from "redux";
-
-import { actionCreators } from "../../_state";
 
 import { State } from "../../_state/reducers";
 
@@ -11,9 +8,6 @@ type PrivateProps = {
 };
 
 export default function Private({ children }: PrivateProps) {
-  const dispatch = useDispatch();
-  const { loginUser } = bindActionCreators(actionCreators, dispatch);
-
   const user = useSelector((state: State) => state.users);
   let location = useLocation();
 
