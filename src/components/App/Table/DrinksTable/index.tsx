@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -20,21 +20,22 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import { getDrinks } from "../../../../services/App";
 
 interface Data {
-  calories: number;
-  carbs: number;
-  fat: number;
   name: string;
-  protein: number;
+  calories: string;
+  carbs: string;
+  fat: string;
+  protein: string;
 }
 
 function createData(
   name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
+  calories: string,
+  carbs: string,
+  fat: string,
+  protein: string
 ): Data {
   return {
     name,
@@ -44,22 +45,6 @@ function createData(
     protein,
   };
 }
-
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -114,31 +99,31 @@ const headCells: readonly HeadCell[] = [
     id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Dessert (100g serving)",
+    label: "ID",
   },
   {
     id: "calories",
     numeric: true,
     disablePadding: false,
-    label: "Calories",
+    label: "Image",
   },
   {
     id: "fat",
     numeric: true,
     disablePadding: false,
-    label: "Fat (g)",
+    label: "Name",
   },
   {
     id: "carbs",
     numeric: true,
     disablePadding: false,
-    label: "Carbs (g)",
+    label: "Category",
   },
   {
     id: "protein",
     numeric: true,
     disablePadding: false,
-    label: "Protein (g)",
+    label: "Description",
   },
 ];
 
@@ -245,7 +230,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          List of Drinks
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -272,6 +257,9 @@ export const DrinksTable: React.FC = () => {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  // const [drinks, setDrinks] = useState<Array<IDrink>>([]);
+  const [rows, setRows] = useState<Data[]>([]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -332,6 +320,54 @@ export const DrinksTable: React.FC = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  //
+  useEffect(() => {
+    (async function () {
+      const requestedDrinks = await getDrinks();
+
+      if (requestedDrinks) {
+        // setDrinks(requestedDrinks);
+      }
+
+      if (requestedDrinks && requestedDrinks.length > 0) {
+        // eslint-disable-next-line array-callback-return
+        const newRows = [];
+
+        for (let i = 0; i < requestedDrinks.length; i++) {
+          let drink = requestedDrinks[i];
+
+          newRows.push({
+            name: drink.idDrink,
+            calories: drink.strDrinkThumb,
+            fat: drink.strDrink,
+            carbs: drink.strCategory,
+            protein: drink.strInstructions,
+          });
+        }
+
+        setRows(newRows);
+      } else {
+        setRows([
+          createData("Cupcake", "305", "3.7", " 67", "4.3"),
+          createData("Donut", "452", "25.0", " 51", "4.9"),
+          createData("Eclair", "262", "16.0", "24", " 6.0"),
+          createData("Frozen yoghurt", "159", "6.0", "24", "4.0"),
+          createData("Gingerbread", "356", "16.0", "49", "3.9"),
+          createData("Honeycomb", "408", "3.2", "87", "6.5"),
+          createData("Ice cream sandwich", "237", "9.0", "37", "4.3"),
+          createData("Jelly Bean", "375", "0.0", "94", "0.0"),
+          createData("KitKat", "518", "26.0", "65", "7.0"),
+          createData("Lollipop", "392", "0.2", "98", "0.0"),
+          createData("Marshmallow", "318", "0", "81", "2.0"),
+          createData("Nougat", "360", "19.0", "9", "37.0"),
+          createData("Oreo", "437", "18.0", "63", "4.0"),
+        ]);
+      }
+
+      console.log(` ---Rows:`, rows, process.env.NODE_ENV);
+    })();
+  }, [rows]);
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -386,10 +422,20 @@ export const DrinksTable: React.FC = () => {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
+                      <TableCell align="right">
+                        <img
+                          src={row.calories}
+                          alt={row.name}
+                          width="44"
+                          height="44"
+                        />
+                      </TableCell>
                       <TableCell align="right">{row.fat}</TableCell>
                       <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">
+                        {row.protein.substring(0, 50).trim() +
+                          (row.protein.length > 50 ? "..." : "")}
+                      </TableCell>
                     </TableRow>
                   );
                 })}

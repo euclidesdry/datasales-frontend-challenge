@@ -22,6 +22,15 @@ A simple challenge powered by Datasales
 
 [https://euclidesdry-datasales-frontend.herokuapp.com](https://euclidesdry-datasales-frontend.herokuapp.com)
 
+#### Users
+
+```bash
+[
+  { username: "Euclides", password: "@123456" },
+  { username: "Admin", password: "@12345678" },
+];
+```
+
 ## Routes
 
 - Authentication [Auth]
@@ -32,7 +41,7 @@ A simple challenge powered by Datasales
 ### Auth Route [must do/have]
 
 - [X] User and Password authentication fields
-- [ ] User authentication feedback to user
+- [X] User authentication feedback to user
 - [ ] Form validations
 
 ### Auth Route [must do/have]
@@ -43,6 +52,7 @@ A simple challenge powered by Datasales
 - [ ] The button New Must insert an Items on top of the Table list
 - [ ] The button Edit Must edit the selected item
 - [ ] The button Delete Must remove the selected item
+- [ ] User Must have a feedback about all of the actions
 
 ## Requirements
 

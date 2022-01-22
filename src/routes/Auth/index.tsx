@@ -19,6 +19,7 @@ import { State } from "../../_state/reducers";
 import { actionCreators } from "../../_state";
 
 import { Header } from "../../components/App/Header";
+import { LOGIN_USERS } from "../../services/App";
 
 export default function Auth() {
   const [username, setUsername] = useState<string>("");
@@ -35,8 +36,23 @@ export default function Auth() {
   let navigate = useNavigate();
 
   const signIn = () => {
-    alert(`Username: ${username} Password: ${password}`);
-    loginUser(username);
+    const matchUser = LOGIN_USERS.find(
+      ({ username: LUsername, password: LPassword }) => {
+        return (
+          LUsername.toLocaleLowerCase() === username && LPassword === password
+        );
+      }
+    );
+
+    console.log("--matchUser: ", matchUser);
+
+    if (matchUser && matchUser.username) {
+      alert(`Sucesso, você está Logado como: ${username}`);
+      loginUser(username);
+      navigate("/app");
+    } else {
+      alert(`Usuário ou senha inválidos!`);
+    }
   };
 
   return (
@@ -75,7 +91,7 @@ export default function Auth() {
 
           <div className="Button">
             <Button variant="contained" color="primary" onClick={signIn}>
-              Log In
+              Fazer Login
             </Button>
           </div>
         </div>

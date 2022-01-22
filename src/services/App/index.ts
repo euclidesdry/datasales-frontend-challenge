@@ -1,7 +1,7 @@
 import axios from "../services.config";
 
 export interface IDrink {
-  idDrink: number;
+  idDrink: string;
   strDrink: string;
   strCategory: string;
   strAlcoholic: string;
@@ -22,16 +22,26 @@ export interface IDrink {
   dateModified: string;
 }
 
-const USERS = [
-  { id: 1, username: "Euclides", email: "euclidesdry", password: "@123456" },
-  { id: 2, username: "Admin", email: "admin", password: "@12345678" },
+export const LOGIN_USERS = [
+  {
+    id: 1,
+    username: "Euclides",
+    email: "euclidesdry@challenge.com.br",
+    password: "@123456",
+  },
+  {
+    id: 2,
+    username: "Admin",
+    email: "admin@challenge.com.br",
+    password: "@12345678",
+  },
 ];
 
 const API_QUERY_STRING =
   process.env.NODE_ENV === "production" ? "/search.php?s=coffee" : "/drinks";
 
 export async function login() {
-  return USERS;
+  return LOGIN_USERS;
 }
 
 export async function getDrinks() {
