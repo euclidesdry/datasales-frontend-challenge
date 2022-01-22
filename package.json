@@ -1,6 +1,6 @@
 {
   "name": "datasales-frontend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Just a simple Frontend Test",
   "author": "euclidesdry <euclidesdry@gmail.com>",
   "private": false,
@@ -61,8 +61,12 @@
     "react-app-polyfill": "^3.0.0",
     "react-dev-utils": "^12.0.0",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.2.1",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^12.3.0",
@@ -153,7 +157,9 @@
     ]
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.7.1",
     "@types/axios": "^0.14.0",
+    "@types/react-redux": "^7.1.22",
     "@types/react-router-dom": "^5.3.3",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",

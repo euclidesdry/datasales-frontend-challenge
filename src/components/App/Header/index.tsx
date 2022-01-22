@@ -11,11 +11,20 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { app } from "../../../_constants/app";
 
-export const Header: FC = () => {
+const pages = ["App"];
+const settings = ["Logout"];
+
+type HeaderProps = {
+  onLogout?: () => void;
+};
+
+export const Header: FC<HeaderProps> = ({ onLogout }) => {
+  let navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -34,8 +43,16 @@ export const Header: FC = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    if (onLogout) {
+      onLogout();
+    }
+
+    navigate("/");
+  };
+
   return (
-    <AppBar position="static" data-testid="header-app">
+    <AppBar position="fixed" data-testid="header-app">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -44,7 +61,7 @@ export const Header: FC = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            LOGO
+            {app.APP_NAME}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -89,7 +106,7 @@ export const Header: FC = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            LOGO
+            {app.APP_NAME}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -126,7 +143,14 @@ export const Header: FC = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={() => {
+                    setting === "Logout"
+                      ? handleLogout()
+                      : handleCloseNavMenu();
+                  }}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
