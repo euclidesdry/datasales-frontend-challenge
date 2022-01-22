@@ -1,9 +1,11 @@
 import { UserActionTypes } from "../../_constants/user";
 import { ActionTypes } from "../actions/user";
 
+const savedAuth = localStorage.getItem("@datasales-challenge:user");
+
 const initialLoginState = {
-  username: "",
-  isLoggedIn: false,
+  username: savedAuth ? savedAuth : "",
+  isLoggedIn: savedAuth ? true : false,
 };
 
 type LoginStateType = {

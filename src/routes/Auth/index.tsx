@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -28,12 +28,15 @@ export default function Auth() {
   const { loginUser } = bindActionCreators(actionCreators, dispatch);
   const user = useSelector((state: State) => state.users);
 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   let navigate = useNavigate();
 
   const signIn = () => {
     alert(`Username: ${username} Password: ${password}`);
     loginUser(username);
-    navigate("/app");
   };
 
   return (
