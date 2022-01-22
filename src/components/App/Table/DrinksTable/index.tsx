@@ -23,26 +23,26 @@ import { visuallyHidden } from "@mui/utils";
 import { getDrinks } from "../../../../services/App";
 
 interface Data {
+  id: string;
+  image: string;
   name: string;
-  calories: string;
-  carbs: string;
-  fat: string;
-  protein: string;
+  category: string;
+  description: string;
 }
 
 function createData(
+  id: string,
+  image: string,
   name: string,
-  calories: string,
-  carbs: string,
-  fat: string,
-  protein: string
+  category: string,
+  description: string
 ): Data {
   return {
+    id,
+    image,
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    category,
+    description,
   };
 }
 
@@ -96,31 +96,31 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "name",
+    id: "id",
     numeric: false,
     disablePadding: true,
     label: "ID",
   },
   {
-    id: "calories",
+    id: "image",
     numeric: true,
     disablePadding: false,
     label: "Image",
   },
   {
-    id: "fat",
+    id: "name",
     numeric: true,
     disablePadding: false,
     label: "Name",
   },
   {
-    id: "carbs",
+    id: "category",
     numeric: true,
     disablePadding: false,
     label: "Category",
   },
   {
-    id: "protein",
+    id: "description",
     numeric: true,
     disablePadding: false,
     label: "Description",
@@ -195,10 +195,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
+  onRemoveSelectedItems: () => void;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-  const { numSelected } = props;
+  const { numSelected, onRemoveSelectedItems } = props;
 
   return (
     <Toolbar
@@ -234,7 +235,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         </Typography>
       )}
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" onClick={onRemoveSelectedItems}>
           <IconButton>
             <DeleteIcon />
           </IconButton>
@@ -252,7 +253,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
 export const DrinksTable: React.FC = () => {
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("calories");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -316,6 +317,18 @@ export const DrinksTable: React.FC = () => {
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
+  const handleRemoveSelected = () => {
+    let newRows = rows.filter((row) => !selected.includes(row.id));
+    let toDelete = window.confirm(
+      `Are you sure you want to delete items: ${selected.join(" ,")}?`
+    );
+
+    if (toDelete) {
+      setRows(newRows);
+      setSelected([]);
+    }
+  };
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -337,12 +350,12 @@ export const DrinksTable: React.FC = () => {
           let drink = requestedDrinks[i];
 
           newRows.push({
-            name: drink.idDrink,
-            calories: drink.strDrinkThumb,
-            fat: drink.strDrink,
-            carbs: drink.strCategory,
-            protein: drink.strInstructions,
-          });
+            id: drink.idDrink,
+            image: drink.strDrinkThumb,
+            name: drink.strDrink,
+            category: drink.strCategory,
+            description: drink.strInstructions,
+          } as Data);
         }
 
         setRows(newRows);
@@ -366,12 +379,16 @@ export const DrinksTable: React.FC = () => {
 
       console.log(` ---Rows:`, rows, process.env.NODE_ENV);
     })();
-  }, [rows]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          onRemoveSelectedItems={handleRemoveSelected}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -392,17 +409,17 @@ export const DrinksTable: React.FC = () => {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -420,21 +437,21 @@ export const DrinksTable: React.FC = () => {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.id}
                       </TableCell>
                       <TableCell align="right">
                         <img
-                          src={row.calories}
+                          src={row.image}
                           alt={row.name}
                           width="44"
                           height="44"
                         />
                       </TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
+                      <TableCell align="right">{row.name}</TableCell>
+                      <TableCell align="right">{row.category}</TableCell>
                       <TableCell align="right">
-                        {row.protein.substring(0, 50).trim() +
-                          (row.protein.length > 50 ? "..." : "")}
+                        {row.description.substring(0, 50).trim() +
+                          (row.description.length > 50 ? "..." : "")}
                       </TableCell>
                     </TableRow>
                   );

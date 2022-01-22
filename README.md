@@ -42,7 +42,7 @@ A simple challenge powered by Datasales
 
 - [X] User and Password authentication fields
 - [X] User authentication feedback to user
-- [ ] Form validations
+- [X] Form validations
 
 ### Auth Route [must do/have]
 
@@ -51,8 +51,8 @@ A simple challenge powered by Datasales
 - [ ] 3 Buttons New, Edit, Delete
 - [ ] The button New Must insert an Items on top of the Table list
 - [ ] The button Edit Must edit the selected item
-- [ ] The button Delete Must remove the selected item
-- [ ] User Must have a feedback about all of the actions
+- [X] The button Delete Must remove the selected item
+- [X] User Must have a feedback about all of the actions
 
 ## Requirements
 
