@@ -29,6 +29,21 @@ A simple challenge powered by Datasales
 - Application [App]
   - Shows cards from API Request to List Drinks
 
+### Auth Route [must do/have]
+
+- [X] User and Password authentication fields
+- [ ] User authentication feedback to user
+- [ ] Form validations
+
+### Auth Route [must do/have]
+
+- [X] Items Listed by a Table
+- [X] At least 5 columns and one of them is the image
+- [ ] 3 Buttons New, Edit, Delete
+- [ ] The button New Must insert an Items on top of the Table list
+- [ ] The button Edit Must edit the selected item
+- [ ] The button Delete Must remove the selected item
+
 ## Requirements
 
 - [X] ReactJS
@@ -40,14 +55,14 @@ A simple challenge powered by Datasales
 
 ## Differential Requirements
 
-- [ ] Redux
+- [X] Redux
 - [X] TypeScript
-- [ ] Save data to LocalStorage
+- [X] Save data to LocalStorage
 - [X] Deploy Application (Heroku, Netlify)
 
 ## Bonus
 
-- [x] Setup CI/CD Pipelines (GitHub Actions [Node v14-16])
-- [x] Setup Unit Tests
+- [X] Setup CI/CD Pipelines (GitHub Actions [Node v14-16])
+- [X] Setup Unit Tests
 
 ### The Fake API was based on [https://www.thecocktaildb.com/](https://www.thecocktaildb.com/api/json/v1/1/search.php?s=coffee)

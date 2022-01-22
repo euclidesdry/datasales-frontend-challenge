@@ -1,11 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Route,
-  Navigate,
-  IndexRouteProps,
-  LayoutRouteProps,
-  useLocation,
-} from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { bindActionCreators } from "redux";
 
 import { actionCreators } from "../../_state";
